@@ -1,10 +1,10 @@
 // Game constants and variable
 let inputDir = {x: 0 , y: 0};
 
-const foodSound = new Audio("https://github.com/dragno99/Snake-Game/tree/main/music/food.mp3");
-const gameOverSound = new Audio("https://github.com/dragno99/Snake-Game/tree/main/music/gameover.mp3");
-const moveSound = new Audio("https://github.com/dragno99/Snake-Game/tree/main/music/move.mp3");
-const musicSound = new Audio("https://github.com/dragno99/Snake-Game/tree/main/music/music.mp3");
+const foodSound = new Audio("https://raw.githubusercontent.com/dragno99/Snake-Game/music/food.mp3");
+const gameOverSound = new Audio("https://raw.githubusercontent.com/dragno99/Snake-Game/music/gameover.mp3");
+const moveSound = new Audio("https://raw.githubusercontent.com/dragno99/Snake-Game/music/move.mp3");
+const musicSound = new Audio("https://raw.githubusercontent.com/dragno99/Snake-Game/music/music.mp3");
 const speed = 5;
 let isMusicPlaying = 0;
 let score = 0;
