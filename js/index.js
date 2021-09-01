@@ -1,10 +1,18 @@
+let foodSound = new Howl({
+    src : ["../music/food.mp3"]
+});
+let gameOverSound = new Howl({
+    src : ["../music/gameover.mp3"]
+});
+let moveSound = new Howl({
+    src : ["../music/move.mp3"]
+});
+let musicSound = new Howl({
+    src : ["../music/music.mp3"]
+});
+
 // Game constants and variable
 let inputDir = {x: 0 , y: 0};
-
-const foodSound = new Audio("../music/food.mp3");
-const gameOverSound = new Audio("../music/gameover.mp3");
-const moveSound = new Audio("../music/move.mp3");
-const musicSound = new Audio("../music/music.mp3");
 
 const speed = 5;
 let isMusicPlaying = 0;
@@ -105,7 +113,7 @@ function gameEngine(){
 // Main logic starts here
 window.requestAnimationFrame(main);
 window.addEventListener('keydown', e =>{
-    inputDir = {x : 0 , y : 0} // start the game
+    // inputDir = {x : 0 , y : 0} // start the game
     if(!isMusicPlaying){
         isMusicPlaying = 1;
         musicSound.play();
@@ -113,22 +121,30 @@ window.addEventListener('keydown', e =>{
     moveSound.play();
     switch(e.key){
         case "ArrowUp":
-            console.log("ArrowUp");
+            if((inputDir.x!=0 || inputDir.y !=0) && inputDir.x == 0){
+                break;
+            }
             inputDir.x = 0;
             inputDir.y = -1;
             break;
         case "ArrowDown":
-            console.log("ArrowDown");
+            if( (inputDir.x!=0 || inputDir.y !=0) && inputDir.x == 0){
+                break;
+            }
             inputDir.x = 0;
             inputDir.y = +1;
             break;
         case "ArrowLeft":
-            console.log("ArrowLeft");
+            if( (inputDir.x!=0 || inputDir.y !=0) && inputDir.y == 0){
+                break;
+            }
             inputDir.x = -1;
             inputDir.y = 0;
             break;
         case "ArrowRight":
-            console.log("ArrowRight");
+            if( (inputDir.x!=0 || inputDir.y !=0) && inputDir.y == 0){
+                break;
+            }
             inputDir.x = 1;
             inputDir.y = 0;
             break;
