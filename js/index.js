@@ -1,15 +1,16 @@
-let foodSound = new Howl({
-    src : ["../music/food.mp3"]
+var foodSound = new Howl({
+    src : ['../music/food.mp3']
 });
-let gameOverSound = new Howl({
-    src : ["../music/gameover.mp3"]
+var gameOverSound = new Howl({
+    src : ['../music/gameover.mp3']
 });
-let moveSound = new Howl({
-    src : ["../music/move.mp3"]
+var moveSound = new Howl({
+    src : ['../music/move.mp3']
 });
-let musicSound = new Howl({
-    src : ["../music/music.mp3"]
+var musicSound = new Howl({
+    src : ['../music/music.mp3']
 });
+
 
 // Game constants and variable
 let inputDir = {x: 0 , y: 0};
