@@ -15,7 +15,7 @@ var musicSound = new Howl({
 // Game constants and variable
 let inputDir = {x: 0 , y: 0};
 
-const speed = 30;
+const speed = 5;
 let isMusicPlaying = 0;
 let score = 0;
 let lastPaintTime = 0;
