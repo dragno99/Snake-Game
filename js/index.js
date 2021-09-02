@@ -15,7 +15,7 @@ var musicSound = new Howl({
 // Game constants and variable
 let inputDir = {x: 0 , y: 0};
 
-const speed = 5;
+const speed = 30;
 let isMusicPlaying = 0;
 let score = 0;
 let lastPaintTime = 0;
@@ -23,7 +23,7 @@ let lastPaintTime = 0;
 let snakeArr = [
     {x : 13 , y : 15}
 ]
-food = {x: 4 , y : 8}
+food = {x: 13 , y : 8}
 
 /// Game Function
 
@@ -38,7 +38,7 @@ function main(ctime){
 
 function isCollide(snake){
     // if you bump into yourself
-    if(!(snake[0].x >0 && snake[0].x<=18 && snake[0].y>0 && snake[0].y<=18)){
+    if(!(snake[0].x>0 && snake[0].x<=18 && snake[0].y>0 && snake[0].y<=18)){
         return true;
     }
     for(let i = 1; i<snakeArr.length; i++){
@@ -56,9 +56,40 @@ function updateScore(){
     gameScore.innerHTML = "Score: " + String(score);
     return;
 }
+function isOnTheSnake(arr){
+    for(let i = 0 ; i < arr.length ; i++){
+        if(arr[i].x === food.x && arr[i].y === food.y){
+            return true;
+        }
+    }
+    return false;
+}
+
+function genFood(){
+    food = {x : getRandomNumber(2,16) , y : getRandomNumber(2,16)};
+    while(isOnTheSnake(snakeArr)){
+        food = {x : getRandomNumber(2,16) , y : getRandomNumber(2,16)};
+    }
+    return;
+}
 
 function gameEngine(){
     // 1) update the snake
+    // if you have eaten the food, increament the score and regenerate the food
+    if(snakeArr[0].y === food.y && snakeArr[0].x == food.x){
+        foodSound.play();
+        score++;
+        updateScore();
+        snakeArr.push({x : snakeArr[snakeArr.length-1].x  , y : snakeArr[snakeArr.length-1].y });
+        genFood();
+    }
+    // moving the snake
+    for(let i = snakeArr.length-2 ; i>=0 ; i--){
+        snakeArr[i+1] = {...snakeArr[i]};
+    }
+    snakeArr[0].x += inputDir.x;
+    snakeArr[0].y += inputDir.y;
+
     if(isCollide(snakeArr)){
         isMusicPlaying = 0;
         musicSound.pause();
@@ -66,26 +97,12 @@ function gameEngine(){
         inputDir.x = 0;
         inputDir.y = 0;
         alert("Game over");
-        snakeArr = [{x : 13 , y: 15}];
         score = 0;
         updateScore();
+        snakeArr = [{x : 13 , y: 15}];
     }
 
-    // if you have eaten the food, increament the score and regenerate the food
-    if(snakeArr[0].y === food.y && snakeArr[0].x == food.x){
-        foodSound.play();
-        score++;
-        updateScore();
-        snakeArr.unshift({x : snakeArr[0].x + inputDir.x , y : snakeArr[0].y + inputDir.y});
-        food = {x: getRandomNumber(2,16) , y: getRandomNumber(2,16)};
-    }
-
-    // moving the snake
-    for(let i = snakeArr.length-2 ; i>=0 ; i--){
-        snakeArr[i+1] = {...snakeArr[i]};
-    }
-    snakeArr[0].x += inputDir.x;
-    snakeArr[0].y += inputDir.y;
+    // everything is fine now
 
     // 2) Display the snake
     board.innerHTML = "";
@@ -114,7 +131,6 @@ function gameEngine(){
 // Main logic starts here
 window.requestAnimationFrame(main);
 window.addEventListener('keydown', e =>{
-    // inputDir = {x : 0 , y : 0} // start the game
     if(!isMusicPlaying){
         isMusicPlaying = 1;
         musicSound.play();
